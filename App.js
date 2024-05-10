@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated, TouchableOpacity, Modal } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import postsData from './posts.json'; // Importing postsData directly from the JSON file
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const scrollY = new Animated.Value(0);
 
   useEffect(() => {
@@ -34,6 +35,16 @@ const App = () => {
     outputRange: [0, -100],
     extrapolate: 'clamp',
   });
+
+  const handleProfileIconClick = () => {
+    // Show the modal
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    // Close the modal
+    setShowModal(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -65,8 +76,35 @@ const App = () => {
       <View style={styles.navigationBar}>
         <Ionicons name="notifications-outline" size={24} color="black" style={styles.navIcon} />
         <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" style={styles.navIcon} />
-        <Ionicons name="person-circle-outline" size={24} color="black" style={styles.navIcon} />
+        {/* Profile Icon */}
+        <TouchableOpacity onPress={handleProfileIconClick}>
+          <Ionicons name="person-circle-outline" size={24} color="black" style={styles.navIcon} />
+        </TouchableOpacity>
       </View>
+      {/* Modal for sign in / create account */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text>Sign in or Create an Account</Text>
+            {/* Add sign in and create account buttons */}
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Sign In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Create Account</Text>
+            </TouchableOpacity>
+            {/* Add close button */}
+            <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -157,6 +195,35 @@ const styles = StyleSheet.create({
   },
   navIcon: {
     marginRight: 16,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  closeButton: {
+    marginTop: 20,
+  },
+  closeButtonText: {
+    color: '#FF4500',
+    fontSize: 16,
   },
 });
 
