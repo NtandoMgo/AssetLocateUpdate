@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "picture": "assets/picture1.jpeg",
+    "car_description": "Description of car 1",
+    "last_seen_location": "Location 1",
+    "other_information": "Other information about car 1"
+  },
+  {
+    "id": 2,
+    "picture": "assets/picture2.jpeg",
+    "car_description": "Description of car 2",
+    "last_seen_location": "Location 2",
+    "other_information": "Other information about car 2"
+  }
+]
