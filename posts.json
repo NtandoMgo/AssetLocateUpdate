@@ -2,15 +2,29 @@
   {
     "id": 1,
     "picture": "assets/picture1.jpeg",
-    "car_description": "Description of car 1",
-    "last_seen_location": "Location 1",
-    "other_information": "Other information about car 1"
+    "car_description": "2020 Toyota Corolla, white",
+    "last_seen_location": "Diepkloof Extension",
+    "other_information": "The car had a dent on the rear bumper."
   },
   {
     "id": 2,
-    "picture": "assets/picture2.jpeg",
-    "car_description": "Description of car 2",
-    "last_seen_location": "Location 2",
-    "other_information": "Other information about car 2"
+    "picture": "assets/picture2.jpeg", 
+    "car_description": "2018 Volkswagen Polo, red",
+    "last_seen_location": "Jabulani",
+    "other_information": "The car had a broken side mirror on the driver's side."
+  },
+  {
+    "id": 3,
+    "picture": "assets/picture3.jpeg",
+    "car_description": "2016 Ford Ranger, silver",
+    "last_seen_location": "Kliptown",
+    "other_information": "The truck had a customized bed liner."
+  },
+  {
+    "id": 4,
+    "picture": "assets/picture4.jpeg",
+    "car_description": "2021 Hyundai Grand i10, blue",
+    "last_seen_location": "Orlando East",
+    "other_information": "The car had a scratch on the driver's door."
   }
 ]
