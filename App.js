@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, ScrollView, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import postsData from './posts.json'; // Importing postsData directly from the JSON file
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+  const scrollY = new Animated.Value(0);
 
   useEffect(() => {
     setPosts(postsData); // Setting postsData directly to state
@@ -27,23 +28,39 @@ const App = () => {
     </View>
   );
 
+  // Calculate header translateY based on scroll position
+  const headerTranslateY = scrollY.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, -100],
+    extrapolate: 'clamp',
+  });
+
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
+      <Animated.View style={[styles.header, {transform: [{translateY: headerTranslateY}]}]}>
         {/* Home Icon */}
         <Ionicons name="home-outline" size={24} color="black" style={styles.icon} />
         {/* Logo */}
         <Image source={require('./assets/logo.png')} style={styles.logo} />
         {/* Search */}
         <Ionicons name="search-outline" size={24} color="black" style={styles.icon} />
-      </View>
-      {/* Main Content */}
-      <FlatList
-        data={posts}
-        renderItem={renderPostTile}
-        keyExtractor={(item) => item.id.toString()}
-      />
+      </Animated.View>
+      <ScrollView
+        style={{flex: 1}}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: true }
+        )}
+        scrollEventThrottle={16}
+        contentContainerStyle={{paddingTop: 100}} // Add paddingTop to ScrollView to account for header height
+      >
+        {/* Main Content */}
+        <FlatList
+          data={posts}
+          renderItem={renderPostTile}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </ScrollView>
       {/* Navigation Bar */}
       <View style={styles.navigationBar}>
         <Ionicons name="notifications-outline" size={24} color="black" style={styles.navIcon} />
@@ -68,6 +85,12 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: '#fff', // Add a background color to header for overlay effect
   },
   icon: {
     marginRight: 16,
