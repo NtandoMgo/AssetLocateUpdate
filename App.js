@@ -44,6 +44,12 @@ const App = () => {
         renderItem={renderPostTile}
         keyExtractor={(item) => item.id.toString()}
       />
+      {/* Navigation Bar */}
+      <View style={styles.navigationBar}>
+        <Ionicons name="notifications-outline" size={24} color="black" style={styles.navIcon} />
+        <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" style={styles.navIcon} />
+        <Ionicons name="person-circle-outline" size={24} color="black" style={styles.navIcon} />
+      </View>
     </View>
   );
 };
@@ -116,6 +122,18 @@ const styles = StyleSheet.create({
   otherInformation: {
     color: '#fff',
     fontSize: 14,
+  },
+  navigationBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+    paddingVertical: 16,
+  },
+  navIcon: {
+    marginRight: 16,
   },
 });
 
